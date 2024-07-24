@@ -1,0 +1,3 @@
+1- type animation affecting everything's position
+2- icons not getting under the starting point
+3- how to change the navbar buttons animation
