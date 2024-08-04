@@ -17,12 +17,20 @@ import { TypeAnimation } from "react-type-animation";
 import { motion } from "framer-motion";
 //variant
 import { fadeIn } from "../variant";
+//intersectionObserver
+import { useInView } from "react-intersection-observer";
 
 const Banner = () => {
+  const [ref, inView] = useInView({
+    threshold: 0.5,
+    triggerOnce: true,
+  });
+
   return (
     <section
+      ref={ref}
       id="home"
-      className="min-h-[85vh] lg:min-h-[78vh] flex items-center"
+      className="min-h-[42vh] lg:min-h-[60vh] flex items-center"
     >
       <div className="container mx-auto">
         <div className="flex flex-col gap-y-5 lg:gap-y-0 lg:flex-row lg:items-end lg:gap-x-12">
@@ -31,7 +39,7 @@ const Banner = () => {
             variants={fadeIn("down", 0.1)}
             initial="hidden"
             whileInView={"show"}
-            viewport={{ once: false, amount: 0.5 }}
+            viewport={{ once: true, amount: 0.5 }}
             className="flex-1 text-center font-secondary lg:text-left"
           >
             <h1 className="font-sevillana font-extrabold text-[26px] leading-[0.8] lg:text-[30px] tracking-widest">
@@ -78,8 +86,8 @@ const Banner = () => {
             variants={fadeIn("down", 0.4)}
             initial="hidden"
             whileInView={"show"}
-            viewport={{ once: false, amount: 0.5 }}
-            className="flex gap-x-6 text-[20px] max-w-max mx-auto lg:mx-0 "
+            viewport={{ once: true, amount: 0.5 }}
+            className="flex gap-x-5 text-[20px] max-w-max mx-auto lg:mx-0 "
           >
             <a href="#">
               <FaGithub />
@@ -105,15 +113,19 @@ const Banner = () => {
           </motion.div>
 
           {/* Image */}
-          <motion.div
-            variants={fadeIn("left", 0.3)}
-            initial="hidden"
-            whileInView={"show"}
-            viewport={{ once: false, amount: 0.5 }}
-            className="hidden  lg:flex max-w-[300px] lg:max-w-[382px] "
-          >
-            <img src={Image} alt="image" />
-          </motion.div>
+          <div>
+            {inView ? (
+              <motion.div
+                variants={fadeIn("left", 0.3)}
+                initial="hidden"
+                whileInView={"show"}
+                viewport={{ once: true, amount: 0.5 }}
+                className="hidden  lg:flex max-w-[300px] lg:max-w-[382px] "
+              >
+                <img src={Image} alt="image" />
+              </motion.div>
+            ) : null}
+          </div>
         </div>
       </div>
     </section>

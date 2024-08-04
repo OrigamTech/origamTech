@@ -1,9 +1,43 @@
-import React from "react";
+import React, { ReactElement, useState, useEffect } from "react";
 import { BiHomeAlt, BiUser } from "react-icons/bi";
 import { BsClipboardData, BsBriefcase, BsChatSquareText } from "react-icons/bs";
 import { Link } from "react-scroll";
 
-const Nav = () => {
+const Nav = (): ReactElement => {
+  const [offsets, setOffsets] = useState({
+    home: 50,
+    about: 50,
+    services: -100,
+    work: 50,
+    contact: 50,
+  });
+
+  const updateOffsets = () => {
+    if (window.innerWidth >= 1024) {
+      setOffsets({
+        home: -130,
+        about: 50,
+        services: -30,
+        work: 50,
+        contact: 50,
+      });
+    } else {
+      setOffsets({
+        home: -130,
+        about: 210,
+        services: -30,
+        work: 50,
+        contact: 50,
+      });
+    }
+  };
+
+  useEffect(() => {
+    updateOffsets();
+    window.addEventListener("resize", updateOffsets);
+    return () => window.removeEventListener("resize", updateOffsets);
+  }, []);
+
   return (
     <nav className="fixed bottom-1 lg:bottom-1 w-full overflow-hidden z-50">
       <div className="container mx-auto">
@@ -14,7 +48,7 @@ const Nav = () => {
             activeClass="active"
             smooth={true}
             spy={true}
-            offset={-150}
+            offset={offsets.home}
           >
             <BiHomeAlt />
           </Link>
@@ -25,6 +59,7 @@ const Nav = () => {
             activeClass="active"
             smooth={true}
             spy={true}
+            offset={offsets.about}
           >
             <BiUser />
           </Link>
@@ -35,7 +70,7 @@ const Nav = () => {
             activeClass="active"
             smooth={true}
             spy={true}
-            offset={50}
+            offset={offsets.services}
           >
             <BsClipboardData />
           </Link>
@@ -46,7 +81,7 @@ const Nav = () => {
             activeClass="active"
             smooth={true}
             spy={true}
-            offset={50}
+            offset={offsets.work}
           >
             <BsBriefcase />
           </Link>
@@ -57,7 +92,7 @@ const Nav = () => {
             activeClass="active"
             smooth={true}
             spy={true}
-            offset={50}
+            offset={offsets.contact}
           >
             <BsChatSquareText />
           </Link>

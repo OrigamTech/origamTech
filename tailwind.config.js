@@ -30,6 +30,8 @@ module.exports = {
         site: "url('./assets/site-bg.jpg')",
         about: "url('./assets/about.png')",
         services: "url('./assets/services.png')",
+        untitled: "url('./assets/untitled.png')",
+        portfolio2: "url('./assets/portfolio-img2.png')",
       },
     },
   },
